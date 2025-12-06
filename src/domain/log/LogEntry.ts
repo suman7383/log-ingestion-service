@@ -1,33 +1,35 @@
 import { LogLevel, normalizeLogLevel } from "#domain/log/LogLevel.js";
 import { ValidationError } from "#shared/errors/ValidationError.js";
 
-export type LogEntryOpt = {
-  timestamp: string;
-  service: string;
-  level: string | LogLevel;
+export interface LogEntryOpt {
+  level: LogLevel | string;
   message: string;
-  requestId?: string;
-  metadata?: Record<string, any>;
+  metadata?: Metadata;
   receivedAt?: Date;
-};
+  requestId?: string;
+  service: string;
+  timestamp: Date | string;
+}
+
+type Metadata = Record<string, unknown>;
 
 export class LogEntry {
-  readonly timestamp: Date;
-  readonly service: string;
   readonly level: LogLevel;
   readonly message: string;
-  readonly requestId?: string;
-  readonly metadata?: Record<string, any>;
+  readonly metadata?: Metadata;
   readonly receivedAt: Date;
+  readonly requestId?: string;
+  readonly service: string;
+  readonly timestamp: Date;
 
   constructor({
     level,
     message,
-    service,
-    timestamp,
     metadata,
     receivedAt,
     requestId,
+    service,
+    timestamp,
   }: LogEntryOpt) {
     this.timestamp = new Date(timestamp);
     if (isNaN(this.timestamp.getTime())) {

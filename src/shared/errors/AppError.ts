@@ -1,28 +1,28 @@
 import { ErrorStatusCode } from "./ErrorCode.js";
 
-export type AppErrorOpt = {
+export interface AppErrorOpt {
   code: string;
-  statusCode: ErrorStatusCode;
+  details?: Record<string, unknown>;
   isOperational: boolean;
   msg?: string;
-  details?: Record<string, any>;
+  statusCode: ErrorStatusCode;
   timestamp?: string;
-};
+}
 
 export class AppError extends Error {
   private code: string;
-  private statusCode: ErrorStatusCode;
-  private details?: Record<string, any>;
+  private details?: Record<string, unknown>;
   private isOperational: boolean;
-  private timestamp?: string;
   private msg?: string;
+  private statusCode: ErrorStatusCode;
+  private timestamp?: string;
 
   constructor({
     code,
-    statusCode,
+    details,
     isOperational,
     msg,
-    details,
+    statusCode,
     timestamp,
   }: AppErrorOpt) {
     super(msg ?? code);

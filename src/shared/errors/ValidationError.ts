@@ -1,16 +1,16 @@
 import { AppError, AppErrorOpt } from "./AppError.js";
 import { ErrorCode, ErrorStatusCode } from "./ErrorCode.js";
 
-type ValidationErrorOpt = Pick<AppErrorOpt, "msg" | "details">;
+type ValidationErrorOpt = Pick<AppErrorOpt, "details" | "msg">;
 
 export class ValidationError extends AppError {
-  constructor({ msg, details }: ValidationErrorOpt) {
+  constructor({ details, msg }: ValidationErrorOpt) {
     super({
       code: ErrorCode.VALIDATION_ERROR,
-      statusCode: ErrorStatusCode.VALIDATION_ERROR,
+      details,
       isOperational: true,
       msg,
-      details,
+      statusCode: ErrorStatusCode.VALIDATION_ERROR,
       timestamp: new Date().toISOString(),
     });
   }

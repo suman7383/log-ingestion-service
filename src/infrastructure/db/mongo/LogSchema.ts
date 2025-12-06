@@ -2,31 +2,31 @@ import { LogEntryOpt } from "#domain/log/LogEntry.js";
 import mongoose from "mongoose";
 
 export const LogSchema = new mongoose.Schema<LogEntryOpt>({
-  service: {
-    type: String,
-    required: true,
-    index: true,
-  },
   level: {
-    type: Number,
-    required: true,
     index: true,
+    required: true,
+    type: Number,
   },
   message: {
-    type: String,
     required: true,
-  },
-  timestamp: {
     type: String,
-    required: true,
-    index: true,
   },
+  metadata: mongoose.SchemaTypes.Mixed,
   receivedAt: {
-    type: Date,
     default: () => new Date(),
+    type: Date,
   },
   requestId: String,
-  metadata: mongoose.SchemaTypes.Mixed,
+  service: {
+    index: true,
+    required: true,
+    type: String,
+  },
+  timestamp: {
+    index: true,
+    required: true,
+    type: String,
+  },
 });
 
-export const LogModel = mongoose.model("Log", LogSchema);
+export const logModel = mongoose.model("Log", LogSchema);
