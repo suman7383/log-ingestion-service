@@ -1,10 +1,10 @@
 import { LogLevel, normalizeLogLevel } from "#domain/log/LogLevel.js";
 import { ValidationError } from "#shared/errors/ValidationError.js";
 
-type LogEntryOpt = {
+export type LogEntryOpt = {
   timestamp: string;
   service: string;
-  level: string;
+  level: string | LogLevel;
   message: string;
   requestId?: string;
   metadata?: Record<string, any>;
