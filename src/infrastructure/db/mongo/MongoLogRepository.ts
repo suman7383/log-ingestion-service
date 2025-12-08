@@ -1,5 +1,6 @@
-import { LogEntry } from "#domain/log/LogEntry.js";
+import { LogEntry, LogEntryOpt } from "#domain/log/LogEntry.js";
 import { LogRepository } from "#domain/log/LogRepository.js";
+import { QueryFilter } from "mongoose";
 
 import { logModel } from "./LogSchema.js";
 
@@ -47,9 +48,24 @@ export class MongoLogRepository implements LogRepository {
     offset: number;
     service: string;
     to?: Date;
-  }): Promise<LogEntry[]> {
+  }): Promise<LogEntryOpt[]> {
     // TODO
+    const filter = {
+      level: params.level,
+      service: params.service,
+      timestamp: {
+        $gte: params.from,
+        $lt: params.to,
+      },
+    };
 
-    return [];
+    const logs = await logModel
+      .find(filter)
+      .skip(params.offset)
+      .limit(params.limit)
+      .sort({ timestamp: "asc" })
+      .lean();
+
+    return logs;
   }
 }

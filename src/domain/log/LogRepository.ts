@@ -1,11 +1,11 @@
-import { LogEntry } from "#domain/log/LogEntry.js";
+import { LogEntry, LogEntryOpt } from "#domain/log/LogEntry.js";
 
 export interface LogRepository {
   saveBatch(entries: LogEntry[]): Promise<void>;
 
   saveSingle(entry: LogEntry): Promise<void>;
 
-  search(params: SearchLogParams): Promise<LogEntry[]>;
+  search(params: SearchLogParams): Promise<LogEntryOpt[]>;
 }
 
 interface SearchLogParams {
