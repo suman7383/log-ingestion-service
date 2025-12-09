@@ -1,7 +1,7 @@
 import EventEmitter from "node:events";
 
 // const DEQUEUE_EVENT = "dequeue";
-const ENQUEUE_EVENT = "enqueue";
+export const ENQUEUE_EVENT = "enqueue";
 
 export class CircularQueue<T> extends EventEmitter {
   private currentSize: number;
@@ -43,9 +43,9 @@ export class CircularQueue<T> extends EventEmitter {
    * Enqueue an item into queue
    *
    * Throws QueueFullError if Queue is alreay full
-   * @returns void
+   * @returns "OK" if operation is successfull
    */
-  enqueue(item: T): void {
+  enqueue(item: T): string {
     // throw error if queue is full
     if (this.currentSize === this.maxSize)
       throw new QueueFullError(this.currentSize);
@@ -58,6 +58,8 @@ export class CircularQueue<T> extends EventEmitter {
 
     // Fire an enqueue event
     this.emit(ENQUEUE_EVENT, item);
+
+    return "OK";
   }
 }
 
