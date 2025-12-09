@@ -55,14 +55,29 @@ describe("Circular Queue", () => {
     expect(() => queue.dequeue()).toThrow(QueueEmptyError);
   });
 
+  it("should return correct queue size", () => {
+    const cq = new CircularQueue<LogEntry>(2);
+
+    for (let i = 0; i <= 1; i++) cq.enqueue(logs[i]);
+
+    expect(cq.size()).toBe(2);
+
+    // Remove one item
+    cq.dequeue();
+    expect(cq.size()).toBe(1);
+
+    cq.enqueue(logs[2]);
+    expect(cq.size()).toBe(2);
+  });
+
   it("should throw error if enqueue is performed on full queue", () => {
-    const tq = new CircularQueue<LogEntry>(2);
+    const cq = new CircularQueue<LogEntry>(2);
 
     // Put 2 logs
-    for (let i = 0; i <= 1; i++) tq.enqueue(logs[i]);
+    for (let i = 0; i <= 1; i++) cq.enqueue(logs[i]);
 
     // Adding more logs should throw error
-    expect(() => tq.enqueue(logs[2])).toThrow(QueueFullError);
+    expect(() => cq.enqueue(logs[2])).toThrow(QueueFullError);
   });
 
   it("should emit an event when an item is enqueued", () => {
