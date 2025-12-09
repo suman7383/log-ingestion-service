@@ -6,12 +6,15 @@ import perfectionist from "eslint-plugin-perfectionist";
 import vitest from "@vitest/eslint-plugin";
 
 export default tseslint.config(
+  // 1. Base + TS configs
   {
     ignores: ["**/*.js"],
   },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
+
+  // 2. Language options
   {
     languageOptions: {
       parserOptions: {
@@ -20,10 +23,17 @@ export default tseslint.config(
       },
     },
   },
+
+  // 3. Perfectionist base config
   perfectionist.configs["recommended-natural"],
+
+  // 4. Global overrides (apply to ALL TS files)
   {
     rules: {
-      // Allow empty constructors (singleton, DI, etc.)
+      // Make sure the core rule is off; TS rule handles everything
+      "no-empty-function": "off",
+
+      // Allow empty private/protected constructors
       "@typescript-eslint/no-empty-function": [
         "error",
         {
@@ -31,13 +41,13 @@ export default tseslint.config(
         },
       ],
 
-      // Don’t force alphabetical enum order (for LogLevel etc.)
+      // Don’t force alphabetical enum order
       "perfectionist/sort-enums": "off",
 
       // Keep semantic order of switch cases
       "perfectionist/sort-switch-case": "off",
 
-      // (Optional) keep these, but with only valid options
+      // Still keep these perfectionist rules, but with your options
       "perfectionist/sort-objects": [
         "error",
         {
@@ -55,12 +65,18 @@ export default tseslint.config(
           ignoreCase: true,
         },
       ],
-      ...vitest.configs.recommended.rules,
-      "@typescript-eslint/unbound-method": "off",
     },
+  },
+
+  // 5. Test-only overrides (Vitest)
+  {
     files: ["**/*.test.ts", "**/*.spec.ts"],
     plugins: {
       vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+      "@typescript-eslint/unbound-method": "off",
     },
   },
 );

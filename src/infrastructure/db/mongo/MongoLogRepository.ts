@@ -1,6 +1,5 @@
 import { LogEntry, LogEntryOpt } from "#domain/log/LogEntry.js";
 import { LogRepository } from "#domain/log/LogRepository.js";
-import { QueryFilter } from "mongoose";
 
 import { logModel } from "./LogSchema.js";
 
