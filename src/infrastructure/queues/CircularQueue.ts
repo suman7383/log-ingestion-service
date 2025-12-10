@@ -24,9 +24,9 @@ export class CircularQueue<T> extends EventEmitter {
    *
    * @returns T
    */
-  dequeue(): T {
+  dequeue(): null | T {
     // early return if empty
-    if (this.currentSize === 0) throw new QueueEmptyError();
+    if (this.currentSize === 0) return null;
 
     // Item is at tail
     const item = this.queue[this.head];

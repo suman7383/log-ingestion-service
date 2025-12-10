@@ -8,8 +8,8 @@
     "#*": "./src/*"
   },
   "scripts": {
-    "dev": "tsx --watch src/index.ts",
-    "start": "node dist/index.js",
+    "dev": "tsx --env-file=.env.development --watch src/index.ts",
+    "start": "node --env-file=.env.production dist/index.js",
     "build": "tsc -p tsconfig.build.json",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
@@ -26,8 +26,12 @@
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "dependencies": {
+    "colorette": "^2.0.20",
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "mongoose": "^9.0.1"
+    "mongoose": "^9.0.1",
+    "winston": "^3.19.0",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -37,7 +41,6 @@
     "@vitest/coverage-v8": "^4.0.15",
     "@vitest/eslint-plugin": "^1.5.1",
     "eslint": "^9.39.1",
-    "eslint-plugin-perfectionist": "^4.15.1",
     "prettier": "^3.7.4",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",

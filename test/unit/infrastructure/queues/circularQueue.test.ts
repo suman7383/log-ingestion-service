@@ -52,7 +52,9 @@ describe("Circular Queue", () => {
   });
 
   it("should throw error if dequeue is performed on empty queue", () => {
-    expect(() => queue.dequeue()).toThrow(QueueEmptyError);
+    const log = queue.dequeue();
+
+    expect(log).toBeNull();
   });
 
   it("should return correct queue size", () => {

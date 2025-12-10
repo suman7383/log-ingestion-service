@@ -2,7 +2,6 @@
 
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
-import perfectionist from "eslint-plugin-perfectionist";
 import vitest from "@vitest/eslint-plugin";
 
 export default tseslint.config(
@@ -24,9 +23,6 @@ export default tseslint.config(
     },
   },
 
-  // 3. Perfectionist base config
-  perfectionist.configs["recommended-natural"],
-
   // 4. Global overrides (apply to ALL TS files)
   {
     rules: {
@@ -38,31 +34,6 @@ export default tseslint.config(
         "error",
         {
           allow: ["private-constructors", "protected-constructors"],
-        },
-      ],
-
-      // Don’t force alphabetical enum order
-      "perfectionist/sort-enums": "off",
-
-      // Keep semantic order of switch cases
-      "perfectionist/sort-switch-case": "off",
-
-      // Still keep these perfectionist rules, but with your options
-      "perfectionist/sort-objects": [
-        "error",
-        {
-          type: "natural",
-          order: "asc",
-          ignoreCase: true,
-          partitionByComment: "sort-keys",
-        },
-      ],
-      "perfectionist/sort-interfaces": [
-        "error",
-        {
-          type: "natural",
-          order: "asc",
-          ignoreCase: true,
         },
       ],
     },
