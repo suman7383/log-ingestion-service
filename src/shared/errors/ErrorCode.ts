@@ -4,6 +4,7 @@ export enum ErrorCode {
   NOT_FOUND = "NOT_FOUND",
   SERVER_ERROR = "SERVER_ERROR",
   VALIDATION_ERROR = "VALIDATION_ERROR",
+  SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE",
 }
 
 export enum ErrorStatusCode {
@@ -12,4 +13,5 @@ export enum ErrorStatusCode {
   NOT_FOUND = 404,
   SERVER_ERROR = 500,
   VALIDATION_ERROR = 422,
+  SERVICE_UNAVAILABLE = 503,
 }

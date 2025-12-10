@@ -1,11 +1,11 @@
 import { LogEntry } from "#domain/log/LogEntry.js";
 
 export interface LogQueue {
-  dequeue(): Promise<LogEntry>;
+  dequeue(): LogEntry | null;
 
-  dequeueN(n: number): Promise<LogEntry[]>;
+  // dequeueN(n: number): LogEntry[];
 
-  enqueue(entry: LogEntry): Promise<string>;
+  enqueue(entry: LogEntry): string;
 
-  enqueueN(entries: LogEntry[]): Promise<string>;
+  // enqueueN(entries: LogEntry[]): string;
 }

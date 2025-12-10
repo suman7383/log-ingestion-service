@@ -1,20 +1,31 @@
 import { LogEntry } from "#domain/log/LogEntry.js";
 import { LogQueue } from "#domain/queue/Queue.js";
+import { CircularQueue } from "#infrastructure/queues/CircularQueue.js";
 
 export class StorageQueue implements LogQueue {
-  async dequeue(): Promise<LogEntry> {
-    // TODO
+  private queue: CircularQueue<LogEntry>;
+
+  constructor() {
+    this.queue = new CircularQueue<LogEntry>();
   }
 
-  async dequeueN(n: number): Promise<LogEntry[]> {
-    // TODO
+  dequeue(): LogEntry | null {
+    const entry = this.queue.dequeue();
+
+    return entry;
   }
 
-  async enqueue(entry: LogEntry): Promise<string> {
-    // TODO
+  // dequeueN(n: number): LogEntry[] {
+  //   // TODO
+  // }
+
+  enqueue(entry: LogEntry): string {
+    const ok = this.queue.enqueue(entry);
+
+    return ok;
   }
 
-  async enqueueN(entries: LogEntry[]): Promise<string> {
-    // TODO
-  }
+  // enqueueN(entries: LogEntry[]): string {
+  //   // TODO
+  // }
 }

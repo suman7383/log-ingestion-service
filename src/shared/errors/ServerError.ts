@@ -13,3 +13,16 @@ export class ServerError extends AppError {
     });
   }
 }
+
+export class ServiceUnavailableError extends AppError {
+  constructor(msg: string, details?: Pick<AppErrorOpt, "details">) {
+    super({
+      code: ErrorCode.SERVICE_UNAVAILABLE,
+      details,
+      isOperational: true,
+      msg: msg,
+      statusCode: ErrorStatusCode.SERVICE_UNAVAILABLE,
+      timestamp: new Date().toISOString(),
+    });
+  }
+}

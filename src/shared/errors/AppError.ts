@@ -10,12 +10,12 @@ export interface AppErrorOpt {
 }
 
 export class AppError extends Error {
-  private code: string;
-  private details?: Record<string, unknown>;
-  private isOperational: boolean;
-  private msg?: string;
-  private statusCode: ErrorStatusCode;
-  private timestamp?: string;
+  code: string;
+  details?: Record<string, unknown>;
+  isOperational: boolean;
+  msg?: string;
+  statusCode: ErrorStatusCode;
+  timestamp?: string;
 
   constructor({
     code,
