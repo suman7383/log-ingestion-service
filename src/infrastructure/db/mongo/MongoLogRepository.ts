@@ -1,5 +1,6 @@
 import { LogEntry, LogEntryOpt } from "#domain/log/LogEntry.js";
 import { LogRepository } from "#domain/log/LogRepository.js";
+import { SearchParams } from "#shared/types/index.js";
 
 import { logModel } from "./LogSchema.js";
 
@@ -40,23 +41,24 @@ export class MongoLogRepository implements LogRepository {
     await log.save();
   }
 
-  async search(params: {
-    from?: Date;
-    level?: number;
-    limit: number;
-    offset: number;
-    service: string;
-    to?: Date;
-  }): Promise<LogEntryOpt[]> {
+  async search(params: SearchParams): Promise<LogEntryOpt[]> {
     // TODO
-    const filter = {
-      level: params.level,
+    const filter: Record<string, unknown> = {
+      level: 1,
       service: params.service,
-      timestamp: {
-        $gte: params.from,
-        $lt: params.to,
-      },
     };
+
+    if (params.from || params.to) {
+      filter.timestamp = {};
+
+      if (params.from) {
+        filter.timestamp.$gte = params.from;
+      }
+
+      if (params.to) {
+        filter.timestamp.$lte = params.to;
+      }
+    }
 
     const logs = await logModel
       .find(filter)

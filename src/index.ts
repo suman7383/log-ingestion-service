@@ -17,4 +17,6 @@ async function startServer() {
   }
 }
 
-startServer();
+startServer().catch((err: unknown) => {
+  console.error("[SERVER] crashed:", err);
+});

@@ -1,6 +1,8 @@
 import { LogIngestController } from "#api/http/controllers/LogIngestController.js";
+import { LogSearchController } from "#api/http/controllers/LogSearchController.js";
 import { FlushLogsService } from "#application/use-cases/flush-logs/FlushLogsService.js";
 import { LogIngestService } from "#application/use-cases/ingest-logs/LogIngestService.js";
+import { LogSearchService } from "#application/use-cases/search-logs/LogSearchService.js";
 import { MongoLogRepository } from "#infrastructure/db/mongo/MongoLogRepository.js";
 import { StorageQueue } from "#infrastructure/queues/StorageQueue.js";
 
@@ -12,3 +14,5 @@ export const flushLogsService = FlushLogsService.createInstance(
   storageQueue,
   logRepository,
 );
+export const logSearchService = new LogSearchService(logRepository);
+export const logSearchController = new LogSearchController(logSearchService);

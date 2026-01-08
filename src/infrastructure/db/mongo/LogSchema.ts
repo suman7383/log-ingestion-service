@@ -25,7 +25,7 @@ export const LogSchema = new mongoose.Schema<LogEntryOpt>({
   timestamp: {
     index: true,
     required: true,
-    type: String,
+    type: Date,
   },
 });
 
